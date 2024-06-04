@@ -1,13 +1,9 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-// session_start();
-// if (!isset($_SESSION['loggedin'])) {
-//     header("location: ../login.php");
-//     exit;
-// }
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    header("location: ../login.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +15,7 @@ error_reporting(E_ALL);
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php 
-    include('includes/header.php');
-    include('includes/sidebar.php');
-
-     ?>
+    <?php include('includes/header.php'); ?>
     <div class="container mt-5">
         <h1>Welcome, <?php echo $_SESSION['username']; ?></h1>
         <div class="row">
