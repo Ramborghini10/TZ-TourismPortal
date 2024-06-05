@@ -12,9 +12,21 @@ $sql = "SELECT bookings.id, users.username, destinations.name as destination, bo
         JOIN users ON bookings.user_id = users.id
         JOIN destinations ON bookings.destination_id = destinations.id";
 $result = $conn->query($sql);
-include('includes/header.php');
+// include('includes/header.php');
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <?php
+include('includes/header.php');
+include('includes/sidebar.php');
+?>
 <div class="container mt-5">
     <h2>Manage Bookings</h2>
     <a href="create_booking.php" class="btn btn-primary mb-3">Add Booking</a>

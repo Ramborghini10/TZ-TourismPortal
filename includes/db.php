@@ -9,6 +9,4 @@ $conn = mysqli_connect($host,$user,$pass,$db);
 
 if(!$conn){
     die('Database connection error');
-}else{
-    echo 'Database connected';
-}   
+}
