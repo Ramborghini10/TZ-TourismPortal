@@ -1,44 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100%;
-            background: #f8f9fa;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .sidebar a {
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-    </style>
+    <title>Admin Panel - Tourism Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar">
-        <h4>Tourism Portal Admin</h4>
-        <nav class="nav flex-column">
-            <a class="nav-link active" aria-current="page" href="dashboard.php">Dashboard</a>
-            <a class="nav-link" href="manage_users.php">Manage Users</a>
-            <a class="nav-link" href="manage_destinations.php">Manage Destinations</a>
-            <a class="nav-link" href="manage_bookings.php">Manage Bookings</a>
-            <a class="nav-link" href="reports.php">Reports</a>
-            <a class="nav-link" href="settings.php">Settings</a>
-            <a class="nav-link" href="logout.php">Logout</a>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.php">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Welcome, Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Side Navigation Bar -->
+    <div class="d-flex">
+        <nav class="nav flex-column bg-light p-3" style="min-height: 100vh; width: 250px;">
+            <a class="nav-link active" href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a class="nav-link" href="manage_categories.php"><i class="fas fa-tachometer-alt"></i>Destination Categories</a>
+            <a class="nav-link" href="manage_destinations.php"><i class="fas fa-map-marker-alt"></i> Manage Destinations</a>
+            <a class="nav-link" href="manage_tours.php"><i class="fas fa-suitcase-rolling"></i> Manage Tours</a>
+            <a class="nav-link" href="manage_bookings.php"><i class="fas fa-calendar-check"></i> Manage Bookings</a>
+            <a class="nav-link" href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a>
         </nav>
-    </div>
+        <div class="content p-4" style="width: 100%;">

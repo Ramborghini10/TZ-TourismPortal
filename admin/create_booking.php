@@ -1,80 +1,68 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['loggedin'])) {
-//     header("location: ../login.php");
-//     exit;
-// }
 include('../includes/db.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_POST['user_id'];
-    $destination_id = $_POST['destination_id'];
+    $tour_id = $_POST['tour_id'];
     $booking_date = $_POST['booking_date'];
     $status = $_POST['status'];
 
-    $sql = "INSERT INTO bookings (user_id, destination_id, booking_date, status) VALUES ('$user_id', '$destination_id', '$booking_date', '$status')";
+    $sql = "INSERT INTO bookings (user_id, tour_id, booking_date, status) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiss", $user_id, $tour_id, $booking_date, $status);
+    $stmt->execute();
 
-    if ($conn->query($sql) === TRUE) {
-        header("location: manage_bookings.php");
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+    header('Location: manage_bookings.php');
 }
 
-$sql_users = "SELECT user_id, username FROM users";
-$result_users = $conn->query($sql_users);
-
-$sql_destinations = "SELECT id, name FROM destinations";
-$result_destinations = $conn->query($sql_destinations);
-
-// include('includes/header.php');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users</title>
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <?php
-include('includes/header.php');
 include('includes/sidebar.php');
 ?>
-<div class="container mt-5">
-    <h2>Add Booking</h2>
-    <form action="add_booking.php" method="post">
-        <div class="mb-3">
-            <label for="user_id" class="form-label">User</label>
-            <select class="form-control" id="user_id" name="user_id" required>
-                <?php while ($user = $result_users->fetch_assoc()) : ?>
-                <option value="<?php echo $user['user_id']; ?>"><?php echo $user['username']; ?></option>
-                <?php endwhile; ?>
-            </select>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2><i class="fas fa-plus"></i> Add New Booking</h2>
         </div>
-        <div class="mb-3">
-            <label for="destination_id" class="form-label">Destination</label>
-            <select class="form-control" id="destination_id" name="destination_id" required>
-                <?php while ($destination = $result_destinations->fetch_assoc()) : ?>
-                <option value="<?php echo $destination['destination_id']; ?>"><?php echo $destination['name']; ?></option>
-                <?php endwhile; ?>
-            </select>
+        <div class="card-body">
+            <form action="create_booking.php" method="POST">
+                <div class="form-group">
+                    <label for="user_id"><i class="fas fa-user"></i> User</label>
+                    <select name="user_id" class="form-control" required>
+                        <?php
+                        $users_result = $conn->query("SELECT id, first_name, last_name FROM users");
+                        while ($user = $users_result->fetch_assoc()) {
+                            echo "<option value='" . $user['id'] . "'>" . $user['first_name'] . " " . $user['last_name'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tour_id"><i class="fas fa-map-signs"></i> Tour</label>
+                    <select name="tour_id" class="form-control" required>
+                        <?php
+                        $tours_result = $conn->query("SELECT id, name FROM tours");
+                        while ($tour = $tours_result->fetch_assoc()) {
+                            echo "<option value='" . $tour['id'] . "'>" . $tour['name'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="booking_date"><i class="fas fa-calendar-alt"></i> Booking Date</label>
+                    <input type="date" name="booking_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="status"><i class="fas fa-info-circle"></i> Status</label>
+                    <select name="status" class="form-control" required>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="canceled">Canceled</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Add Booking</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="booking_date" class="form-label">Booking Date</label>
-            <input type="date" class="form-control" id="booking_date" name="booking_date" required>
-        </div>
-        <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-control" id="status" name="status" required>
-                <option value="confirmed">Confirmed</option>
-                <option value="pending">Pending</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Booking</button>
-    </form>
+    </div>
 </div>
 
-<?php include('../includes/footer.php'); ?>
+<?php include('includes/footer.php'); ?>

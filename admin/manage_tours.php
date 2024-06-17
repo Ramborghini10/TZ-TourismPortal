@@ -4,47 +4,39 @@ include('includes/sidebar.php');
 <div class="container-fluid mt-4">
     <div class="card">
         <div class="card-header">
-            <h2>Manage Destinations</h2>
-            <a href="create_destination.php" class="btn btn-success mb-2"><i class="fas fa-plus"></i> Add New Destination</a>
+            <h2>Manage Tours</h2>
+            <a href="create_tour.php" class="btn btn-success mb-2"><i class="fas fa-plus"></i> Add New Tour</a>
         </div>
         <div class="card-body">
-            <table id="destinationsTable" class="table table-striped table-bordered table-responsive">
+            <table id="toursTable" class="table table-striped table-bordered table-responsive">
                 <thead>
                     <tr>
-                        <th>SN</th>
+                        <th>Serial No</th>
+                        <th>Destination</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Location</th>
-                        <th>Best Time to Visit</th>
-                        <th>Activities</th>
-                        <th>Accommodations</th>
-                        <th>Average Cost</th>
-                        <th>Image</th>
+                        <th>Itinerary</th>
+                        <th>Price</th>
+                        <th>Created At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     include('../includes/db.php');
-                    $result = $conn->query("SELECT destinations.*, destination_categories.name AS category_name FROM destinations 
-                                            LEFT JOIN destination_categories ON destinations.category_id = destination_categories.id");
+                    $result = $conn->query("SELECT tours.*, destinations.name AS destination_name FROM tours 
+                                            LEFT JOIN destinations ON tours.destination_id = destinations.id");
                     $serial_number = 1;
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $serial_number++ . "</td>";
+                        echo "<td>" . $row['destination_name'] . "</td>";
                         echo "<td>" . $row['name'] . "</td>";
-                        echo "<td>" . $row['description'] . "</td>";
-                        echo "<td>" . $row['category_name'] . "</td>";
-                        echo "<td>" . $row['location'] . "</td>";
-                        echo "<td>" . $row['best_time_to_visit'] . "</td>";
-                        echo "<td>" . $row['activities'] . "</td>";
-                        echo "<td>" . $row['accommodations'] . "</td>";
-                        echo "<td>" . $row['average_cost'] . "</td>";
-                        echo "<td><img src='../assets/images/" . $row['image'] . "' alt='" . $row['name'] . "' width='100'></td>";
+                        echo "<td>" . $row['itinerary'] . "</td>";
+                        echo "<td>" . $row['price'] . "</td>";
+                        echo "<td>" . $row['created_at'] . "</td>";
                         echo "<td>
-                            <a href='edit_destination.php?id=" . $row['id'] . "' class='btn btn-warning'><i class='fas fa-edit'></i></a>
-                            <a href='delete_destination.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this destination?\");'><i class='fas fa-trash'></i></a>
+                            <a href='edit_tour.php?id=" . $row['id'] . "' class='btn btn-warning'><i class='fas fa-edit'></i></a>
+                            <a href='delete_tour.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this tour?\");'><i class='fas fa-trash'></i></a>
                         </td>";
                         echo "</tr>";
                     }
@@ -69,13 +61,13 @@ include('includes/sidebar.php');
 
 <script>
     $(document).ready(function() {
-        $('#destinationsTable').DataTable({
+        $('#toursTable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
             columnDefs: [
-                { orderable: false, targets: 10 }
+                { orderable: false, targets: 6 }
             ],
             autoWidth: false,
             responsive: true
