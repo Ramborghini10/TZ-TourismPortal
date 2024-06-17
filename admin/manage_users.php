@@ -1,65 +1,92 @@
-<?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-// session_start();
-// if (!isset($_SESSION['loggedin'])) {
-//     header("location: ../login.php");
-//     exit;
-// }
-include('../includes/db.php');
-
-// Fetch users from the database
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);
+<?php 
+include('includes/sidebar.php');
 ?>
+<div class="container-fluid mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Manage Users</h2>
+            <a href="create_user.php" class="btn btn-success mb-2"><i class="fas fa-plus"></i> Add New User</a>
+        </div>
+        <div class="card-body">
+            <?php if (isset($_GET['msg'])): ?>
+                <div class="alert alert-info">
+                    <?php echo htmlspecialchars($_GET['msg']); ?>
+                </div>
+            <?php endif; ?>
+            <table id="usersTable" class="table table-striped table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th>Serial No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>Country</th>
+                        <th>IP Address</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include('../includes/db.php');
+                    $query = "SELECT * FROM users";
+                    $result = $conn->query($query);
+                    
+                    if (!$result) {
+                        die("Query Failed: " . $conn->error);
+                    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users</title>
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <?php 
-    include('includes/header.php'); 
-    include('includes/sidebar.php');
-    ?>
-    <div class="container mt-5">
-        <h2>Manage Users</h2>
-        <a href="add_user.php" class="btn btn-primary mb-3">Add User</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result->fetch_assoc()) : ?>
-                <tr>
-                    <td><?php echo $row['user_id']; ?></td>
-                    <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['username']; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['phone']; ?></td>
-                    <td><?php echo $row['role']; ?></td>
-                    <td>
-                        <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-warning">Edit</a>
-                        <a href="delete_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                    $serial_number = 1;
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $serial_number++ . "</td>";
+                        echo "<td>" . $row['first_name'] . "</td>";
+                        echo "<td>" . $row['last_name'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td>" . $row['phone'] . "</td>";
+                        echo "<td>" . ucfirst($row['role']) . "</td>";
+                        echo "<td>" . $row['country'] . "</td>";
+                        echo "<td>" . $row['ip_address'] . "</td>";
+                        echo "<td>" . $row['created_at'] . "</td>";
+                        echo "<td>
+                            <a href='edit_user.php?id=" . $row['id'] . "' class='btn btn-warning'><i class='fas fa-edit'></i></a>
+                            <a href='delete_user.php?id=" . $row['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this user?\");'><i class='fas fa-trash'></i></a>
+                        </td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+
+<?php include('includes/footer.php'); ?>
+
+<!-- DataTables and Buttons Extension -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#usersTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            columnDefs: [
+                { orderable: false, targets: 9 }
+            ],
+            autoWidth: false,
+            responsive: true
+        });
+    });
+</script>
