@@ -1,39 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tourism Portal</title>
-    <!-- Add your CSS stylesheets and other meta tags here -->
-</head>
-<body>
-    <header>
-        <!-- Add your header content here -->
-    </header>
+<?php include('includes/header.php'); ?>
+<div class="container mt-4">
+    <h1>Welcome to the Tourism Portal</h1>
+    <p>Explore the world with our exciting tours and destinations.</p>
 
-    <main>
-        <h1>Welcome to our Tourism Portal</h1>
-        <h2>Popular Tourist Attractions</h2>
+    <form class="form-inline my-2 my-lg-0" method="GET" action="index.php">
+        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search Destinations" aria-label="Search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
+    <div class="row mt-4">
         <?php
-        // Fetch and display the tourist attractions from your database or any other data source
-        $attractions = [
-            ['name' => 'Attraction 1', 'description' => 'Description of Attraction 1'],
-            ['name' => 'Attraction 2', 'description' => 'Description of Attraction 2'],
-            ['name' => 'Attraction 3', 'description' => 'Description of Attraction 3'],
-            // Add more attractions as needed
-        ];
+        include('includes/db.php');
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $query = "SELECT * FROM destinations WHERE name LIKE ?";
+        $stmt = $conn->prepare($query);
+        $search_param = "%" . $search . "%";
+        $stmt->bind_param("s", $search_param);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        foreach ($attractions as $attraction) {
-            echo '<div>';
-            echo '<h3>' . $attraction['name'] . '</h3>';
-            echo '<p>' . $attraction['description'] . '</p>';
-            echo '</div>';
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='col-md-4 mb-4'>";
+                echo "<div class='card'>";
+                echo "<img src='../assets/images/" . $row['image'] . "' class='card-img-top' alt='" . $row['name'] . "'>";
+                echo "<div class='card-body'>";
+                echo "<h5 class='card-title'>" . $row['name'] . "</h5>";
+                echo "<p class='card-text'>" . substr($row['description'], 0, 100) . "...</p>";
+                echo "<a href='destination_details.php?id=" . $row['id'] . "' class='btn btn-primary'>Learn More</a>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<div class='col-12'><p>No destinations found.</p></div>";
         }
         ?>
-
-    </main>
-
-    <footer>
-        <!-- Add your footer content here -->
-    </footer>
-</body>
-</html>
+    </div>
+</div>
+<?php include('includes/footer.php'); ?>
