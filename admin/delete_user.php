@@ -1,15 +1,20 @@
 <?php
 include('../includes/db.php');
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+$id = $_GET['id'];
 
-    $sql = "DELETE FROM users WHERE id=$id";
-
-    if ($conn->query($sql) === TRUE) {
-        header("location: ../admin/manage_users.php");
+if (isset($id)) {
+    $sql = "DELETE FROM users WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    
+    if ($stmt->affected_rows > 0) {
+        header('Location: manage_users.php?msg=User deleted successfully');
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        header('Location: manage_users.php?msg=User not found or could not be deleted');
     }
+} else {
+    header('Location: manage_users.php?msg=Invalid user ID');
 }
 ?>
