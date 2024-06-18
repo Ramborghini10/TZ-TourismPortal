@@ -1,4 +1,9 @@
-<?php include('includes/sidebar.php'); ?>
+<?php 
+include('../includes/session.php');
+
+include('includes/sidebar.php');
+
+ ?>
 <div class="container">
     <h2>Admin Dashboard</h2>
     <div class="row">

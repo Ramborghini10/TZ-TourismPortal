@@ -1,4 +1,5 @@
 <?php 
+include('../includes/session.php');
 include('includes/sidebar.php');
 ?>
 <div class="container-fluid mt-4">

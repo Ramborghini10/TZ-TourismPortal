@@ -1,9 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['loggedin'])) {
-    header("location: ../login.php");
-    exit;
-}
+include('../includes/session.php');
+
 ?>
 
 <!DOCTYPE html>

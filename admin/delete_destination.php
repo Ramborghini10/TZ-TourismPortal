@@ -1,4 +1,5 @@
 <?php
+include('../includes/session.php');
 include('../includes/db.php');
 
 $id = $_GET['id'];

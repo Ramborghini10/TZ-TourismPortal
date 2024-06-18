@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 include('../includes/db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,25 +18,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category_id = $_POST['category_id'];
     $image = '';
 
+    // Handle file upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "../assets/images/";
         $image = basename($_FILES["image"]["name"]);
-        move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir . $image);
+        $target_file = $target_dir . $image;
 
-        $sql = "UPDATE destinations SET name=?, description=?, location=?, best_time_to_visit=?, activities=?, accommodations=?, average_cost=?, image=?, category_id=? WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssdssi", $name, $description, $location, $best_time_to_visit, $activities, $accommodations, $average_cost, $image, $category_id, $id);
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($check !== false) {
+            // Attempt to move the uploaded file to the server
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                // Update with image
+                $sql = "UPDATE destinations SET name=?, description=?, location=?, best_time_to_visit=?, activities=?, accommodations=?, average_cost=?, image=?, category_id=? WHERE id=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssssssdssi", $name, $description, $location, $best_time_to_visit, $activities, $accommodations, $average_cost, $image, $category_id, $id);
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+                exit();
+            }
+        } else {
+            echo "File is not an image.";
+            exit();
+        }
     } else {
+        // Update without image
         $sql = "UPDATE destinations SET name=?, description=?, location=?, best_time_to_visit=?, activities=?, accommodations=?, average_cost=?, category_id=? WHERE id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssssdsi", $name, $description, $location, $best_time_to_visit, $activities, $accommodations, $average_cost, $category_id, $id);
     }
 
-    $stmt->execute();
-
-    header('Location: manage_destinations.php');
+    // Execute the query
+    if ($stmt->execute()) {
+        header('Location: manage_destinations.php');
+    } else {
+        echo "Error: " . $stmt->error;
+    }
 }
 
+// Fetch existing destination data
 $id = $_GET['id'];
 $result = $conn->query("SELECT * FROM destinations WHERE id=$id");
 $destination = $result->fetch_assoc();
