@@ -2,7 +2,8 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-include('includes/header.php'); 
+include 'includes/session.php';
+include('header.php'); 
 ?>
 
 <div class="container mt-4">
@@ -58,4 +59,4 @@ include('includes/header.php');
     ?>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

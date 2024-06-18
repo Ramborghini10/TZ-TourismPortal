@@ -1,5 +1,6 @@
 <?php
-include('includes/header.php');
+include 'includes/session.php';
+include('header.php');
 include('includes/db.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,4 +60,4 @@ $tours_result = $conn->query("SELECT id, name FROM tours");
     </div>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

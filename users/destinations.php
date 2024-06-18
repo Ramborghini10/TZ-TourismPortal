@@ -1,5 +1,7 @@
-<?php include('includes/header.php'); ?>
-<?php include('includes/db.php'); ?>
+<?php 
+include 'includes/session.php';
+include('header.php'); ?>
+<?php include('../includes/db.php'); ?>
 
 <div class="container mt-4">
     <h1>Available Destinations</h1>
@@ -12,7 +14,7 @@
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='col-md-4 mb-4'>";
                 echo "<div class='card'>";
-                echo "<img src='assets/images/" . $row['image'] . "' class='card-img-top' alt='" . $row['name'] . "'>";
+                echo "<img src='../assets/images/" . $row['image'] . "' class='card-img-top' alt='" . $row['name'] . "'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . $row['name'] . "</h5>";
                 echo "<p class='card-text'>" . substr($row['description'], 0, 100) . "...</p>";
@@ -29,4 +31,4 @@
     </div>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

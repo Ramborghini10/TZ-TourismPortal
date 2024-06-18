@@ -1,4 +1,6 @@
-<?php include('includes/header.php'); ?>
+<?php
+include 'includes/session.php';
+include('header.php'); ?>
 <div class="container mt-4">
     <h1>Welcome to the Tourism Portal</h1>
     <p>Explore the world with our exciting tours and destinations.</p>
@@ -10,7 +12,7 @@
 
     <div class="row mt-4">
         <?php
-        include('includes/db.php');
+        include('../includes/db.php');
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $query = "SELECT * FROM destinations WHERE name LIKE ?";
         $stmt = $conn->prepare($query);
@@ -38,4 +40,4 @@
         ?>
     </div>
 </div>
-<?php include('includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

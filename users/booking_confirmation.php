@@ -1,4 +1,6 @@
-<?php include('includes/header.php'); ?>
+<?php 
+include 'includes/session.php';
+include('header.php'); ?>
 
 <div class="container mt-4">
     <div class="card">
@@ -12,4 +14,4 @@
     </div>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include('../includes/footer.php'); ?>
