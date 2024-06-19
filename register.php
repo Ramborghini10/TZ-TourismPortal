@@ -130,6 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="country" class="form-label">Country</label>
                     <input type="text" class="form-control" id="country" name="country">
                 </div>
+                <p>Already have an account? <a href="login.php">Login Here</a></p>
                 <button type="submit" class="btn btn-success">Register</button>
             </form>
             <?php if(isset($error)) { echo "<div class='alert alert-danger mt-3'>$error</div>"; } ?>
