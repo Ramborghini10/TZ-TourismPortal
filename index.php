@@ -17,7 +17,14 @@ if ($result) {
 }
 ?>
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Tourism Portal</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -39,12 +46,40 @@ if ($result) {
             overflow: hidden;
         }
         .navbar {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 123, 255, 0.9); /* Change background color */
+            font-size: 1.2rem; /* Increase font size */
+            padding: 1rem 2rem; /* Add padding */
         }
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+        .navbar-brand {
+            font-size: 2rem; /* Larger brand text */
+            font-weight: bold; /* Bold brand text */
+            color: #fff !important; /* White brand text */
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important; /* White nav links */
+            margin-right: 1rem; /* Space between links */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffd700 !important; /* Gold hover color */
+        }
+        .navbar-toggler-icon {
+            color: #fff; /* White icon */
+        }
+        .nav-item i {
+            margin-right: 0.5rem; /* Space between icon and text */
+        }
+        .welcome-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: rgba(0, 123, 255, 0.1);
             border-radius: 10px;
+            margin: 20px;
+            padding: 20px;
         }
         .search-container {
             display: flex;
@@ -78,45 +113,9 @@ if ($result) {
         Your browser does not support the video tag.
     </video>
 
-   <?php include('includes/header.php'); ?>
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="assets/images/slide1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Explore the World</h5>
-                    <p>Discover new places and experiences</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="assets/images/slide2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Adventure Awaits</h5>
-                    <p>Find your next adventure with us</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="assets/images/slide3.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Unforgettable Memories</h5>
-                    <p>Create memories that last a lifetime</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+    <?php include('includes/header.php'); ?>
+
+    <div class="welcome-message" id="welcome-message"></div>
 
     <div class="search-container">
         <input type="text" class="search-input" id="search-input" placeholder="Search for destinations, activities, and more...">
@@ -163,7 +162,6 @@ if ($result) {
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -186,6 +184,28 @@ if ($result) {
                 });
             });
         });
+
+        // Typewriter effect for the welcome message
+        const message = "Welcome to the Tourism Portal! Discover amazing destinations, activities, and experiences!";
+        let index = 0;
+        const speed = 100; // Speed of the typing effect
+
+        function typeWriter() {
+            if (index < message.length) {
+                document.getElementById("welcome-message").innerHTML += message.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            } else {
+                setTimeout(() => {
+                    document.getElementById("welcome-message").innerHTML = "";
+                    index = 0;
+                    typeWriter();
+                }, 2000); // Wait 2 seconds before starting again
+            }
+        }
+
+        typeWriter();
     </script>
 </body>
 </html>
+<?php include 'includes/footer.php'; ?>
