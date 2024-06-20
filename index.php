@@ -29,10 +29,8 @@ if ($result) {
         body {
             display: flex;
             flex-direction: column;
-            height: 100vh;
             margin: 0;
             padding: 0;
-            overflow: hidden;
         }
         #video-background {
             position: fixed;
@@ -49,6 +47,10 @@ if ($result) {
             background: rgba(0, 123, 255, 0.9); /* Change background color */
             font-size: 1.2rem; /* Increase font size */
             padding: 1rem 2rem; /* Add padding */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         .navbar-brand {
             font-size: 2rem; /* Larger brand text */
@@ -72,9 +74,9 @@ if ($result) {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 30vh;
+            height: 10vh;
             color: white;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
             background: rgba(0, 123, 255, 0.1);
             border-radius: 10px;
@@ -104,6 +106,62 @@ if ($result) {
         .carousel-item .card img {
             height: 400px;
             object-fit: cover;
+        }
+        .testimonial-section {
+            padding: 60px 20px;
+            background-color: #f0f8ff;
+        }
+        .testimonial-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .testimonial {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .testimonial img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+        }
+        .testimonial p {
+            font-style: italic;
+            margin: 0;
+        }
+        .testimonial .name {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .faq-section {
+            padding: 60px 20px;
+            background-color: #e0f7fa;
+        }
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .faq {
+            margin-bottom: 20px;
+        }
+        .faq h4 {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .faq h4 i {
+            margin-right: 10px;
+        }
+        .faq p {
+            display: none;
+            padding: 10px 20px;
+            background: #ffffff;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -162,6 +220,55 @@ if ($result) {
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <section class="testimonial-section">
+        <div class="container">
+            <h2>Testimonials</h2>
+            <div class="testimonial">
+                <img src="assets/images/avatar.png" alt="Jane Doe">
+                <div>
+                    <i class="bi bi-quote"></i>
+                    <p>"This portal has helped me plan the most amazing trips! Highly recommend it to anyone looking for travel inspiration."</p>
+                    <div class="name">Jane Doe</div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <img src="assets/images/avatar.png" alt="John Smith">
+                <div>
+                    <i class="bi bi-quote"></i>
+                    <p>"A fantastic resource for finding new and exciting destinations. Easy to use and very informative."</p>
+                    <div class="name">John Smith</div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <img src="assets/images/avatar.png" alt="Emily Johnson">
+                <div>
+                    <i class="bi bi-quote"></i>
+                    <p>"I've discovered so many hidden gems thanks to this portal. It's my go-to site for travel planning."</p>
+                    <div class="name">Emily Johnson</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h4><i class="bi bi-question-circle-fill"></i> What is the Tourism Portal?</h4>
+                <p>The Tourism Portal is a comprehensive resource for discovering travel destinations, activities, and experiences around the world.</p>
+            </div>
+            <div class="faq">
+                <h4><i class="bi bi-question-circle-fill"></i> How do I search for destinations?</h4>
+                <p>Use the search bar at the top of the page to enter keywords related to the destinations, activities, or experiences you are looking for.</p>
+            </div>
+            <div class="faq">
+                <h4><i class="bi bi-question-circle-fill"></i> Can I book trips through the portal?</h4>
+                <p>Currently, the portal provides information and inspiration for travel. For bookings, you will need to visit the official websites of the destinations or service providers.</p>
+            </div>
+        </div>
+    </section>
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -182,6 +289,10 @@ if ($result) {
                         $('#attractions-container').html(response);
                     }
                 });
+            });
+
+            $('.faq h4').on('click', function() {
+                $(this).next('p').slideToggle();
             });
         });
 
@@ -208,4 +319,3 @@ if ($result) {
     </script>
 </body>
 </html>
-<?php include 'includes/footer.php'; ?>

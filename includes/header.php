@@ -45,6 +45,9 @@
                         <a class="nav-link" href="index.php"><i class="bi bi-house-door-fill"></i> Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="destination.php"><i class="bi bi-house-door-fill"></i> Destinations</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="login.php"><i class="bi bi-box-arrow-in-right"></i> Login</a>
                     </li>
                     <li class="nav-item">
