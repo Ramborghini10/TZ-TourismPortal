@@ -10,7 +10,7 @@
 </head>
 <body>
     <!-- Top Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
         <a class="navbar-brand" href="index.php">Admin Panel</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,12 +31,15 @@
     <div class="d-flex">
         <nav class="nav flex-column bg-light p-3" style="min-height: 100vh; width: 250px;">
             <a class="nav-link active" href="index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a class="nav-link" href="manage_categories.php"><i class="fas fa-tachometer-alt"></i>Destination Categories</a>
+            <a class="nav-link" href="manage_categories.php"><i class="fas fa-tachometer-alt"></i> Destination Categories</a>
             <a class="nav-link" href="manage_destinations.php"><i class="fas fa-map-marker-alt"></i> Manage Destinations</a>
             <a class="nav-link" href="manage_tours.php"><i class="fas fa-suitcase-rolling"></i> Manage Tours</a>
             <a class="nav-link" href="manage_bookings.php"><i class="fas fa-calendar-check"></i> Manage Bookings</a>
-            <a class="nav-link" href="manage_new_attractions.php"><i class="fas fa-calendar-check"></i> Manage new Attractions</a>
+            <a class="nav-link" href="manage_new_attractions.php"><i class="fas fa-calendar-check"></i> Manage New Attractions</a>
             <a class="nav-link" href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a>
-            <a class="nav-link" href="admin_profile.php"><i class="fas fa-users"></i> Profile</a>
+            <a class="nav-link" href="admin_profile.php"><i class="fas fa-user"></i> Profile</a>
+            <a class="nav-link" href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </nav>
         <div class="content p-4" style="width: 100%;">
+            <!-- Your main content goes here -->
+       
