@@ -35,6 +35,8 @@
             <a class="nav-link" href="manage_destinations.php"><i class="fas fa-map-marker-alt"></i> Manage Destinations</a>
             <a class="nav-link" href="manage_tours.php"><i class="fas fa-suitcase-rolling"></i> Manage Tours</a>
             <a class="nav-link" href="manage_bookings.php"><i class="fas fa-calendar-check"></i> Manage Bookings</a>
+            <a class="nav-link" href="manage_new_attractions.php"><i class="fas fa-calendar-check"></i> Manage new Attractions</a>
             <a class="nav-link" href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a>
+            <a class="nav-link" href="admin_profile.php"><i class="fas fa-users"></i> Profile</a>
         </nav>
         <div class="content p-4" style="width: 100%;">
