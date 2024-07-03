@@ -4,7 +4,7 @@ include('header.php'); ?>
 <?php include('../includes/db.php'); ?>
 
 <div class="container mt-4">
-    <h1>Available Destinations</h1>
+    <h1>Available Attractions</h1>
     <div class="row mt-4">
         <?php
         $query = "SELECT * FROM destinations";
