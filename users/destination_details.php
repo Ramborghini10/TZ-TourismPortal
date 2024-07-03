@@ -2,13 +2,13 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-include 'includes/session.php';
+// include 'includes/session.php';
 include('header.php'); 
 ?>
 
 <div class="container mt-4">
     <?php
-    include('includes/db.php');
+    include('../includes/db.php');
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $query = "SELECT * FROM destinations WHERE id=?";
     $stmt = $conn->prepare($query);
@@ -19,7 +19,7 @@ include('header.php');
     if ($result->num_rows > 0) {
         $destination = $result->fetch_assoc();
         echo "<h1>" . $destination['name'] . "</h1>";
-        echo "<img src='assets/images/" . $destination['image'] . "' class='img-fluid' alt='" . $destination['name'] . "'>";
+        echo "<img src='../assets/images/" . $destination['image'] . "' class='img-fluid' alt='" . $destination['name'] . "'>";
         echo "<p>" . $destination['description'] . "</p>";
         echo "<p><strong>Location:</strong> " . $destination['location'] . "</p>";
         echo "<p><strong>Best Time to Visit:</strong> " . $destination['best_time_to_visit'] . "</p>";
@@ -41,7 +41,7 @@ include('header.php');
             while ($related = $related_result->fetch_assoc()) {
                 echo "<div class='col-md-3 mb-4'>";
                 echo "<div class='card'>";
-                echo "<img src='assets/images/" . $related['image'] . "' class='card-img-top' alt='" . $related['name'] . "'>";
+                echo "<img src='../assets/images/" . $related['image'] . "' class='card-img-top' alt='" . $related['name'] . "'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . $related['name'] . "</h5>";
                 echo "<a href='destination_details.php?id=" . $related['id'] . "' class='btn btn-primary'>Learn More</a>";
