@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .card {
             display: flex;
             flex-direction: row;
-            background: rgba(255, 255, 255, 0.9); /* Add opacity to make the card content readable */
+            background: rgba(255, 255, 255, 0.4 ); /* Add opacity to make the card content readable */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -78,17 +78,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-position: center;
             color: green;
             padding: 20px;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
         .card-body {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px;
+            padding: 5px;
         }
         .card-header {
             color: green;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -104,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Register to access your dashboard.</p>
         </div>
         <div class="card-body">
-            <div class="card-header text-center display-5">User Registration</div>
+            <div class="card-header text-center display-5">Register Here</div>
             <form action="register.php" method="post">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
