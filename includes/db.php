@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 $host = 'localhost';
 $db = 'tourism_portal';
 $user = 'root';
-$pass = 'passw0rd';
+$pass = 'root';
 
 $conn = mysqli_connect($host,$user,$pass,$db);
 

@@ -6,10 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Check if the connection is successful
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     // Use prepared statements to prevent SQL injection
     $stmt = $conn->prepare("SELECT id, email, password, role FROM users WHERE email = ?");
@@ -34,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($row['role'] == 'admin') {
                 header("location: admin/index.php");
             } else {
-                header("location: customer/index.php");
+                header("location: users/index.php");
             }
             exit;
         } else {
