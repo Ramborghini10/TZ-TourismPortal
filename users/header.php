@@ -24,9 +24,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="destinations.php"><i class="fas fa-map-marker-alt"></i> Destinations</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="tours.php"><i class="fas fa-globe"></i> Tours</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="bookings.php"><i class="fas fa-ticket-alt"></i> Bookings</a>
             </li>
