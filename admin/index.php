@@ -75,7 +75,7 @@ while ($row = mysqli_fetch_assoc($resultTopDestinations)) {
         <div class="col-md-3">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Total Destinations</h5>
+                    <h5 class="card-title">Total Attractions</h5>
                     <p class="card-text"><?php echo $totalDestinations; ?></p>
                 </div>
             </div>
@@ -119,7 +119,7 @@ while ($row = mysqli_fetch_assoc($resultTopDestinations)) {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Top Destinations Chart</h5>
+                    <h5 class="card-title">Top attractions Chart</h5>
                     <canvas id="topDestinationsChart"></canvas>
                 </div>
             </div>
