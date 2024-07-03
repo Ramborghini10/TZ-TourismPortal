@@ -39,6 +39,22 @@ if ($result->num_rows > 0) {
     exit();
 }
 $stmt->close();
+
+// Fetch user's booking history
+$booking_history = [];
+$sql_bookings = "SELECT b.booking_date, t.name AS tour_name
+                FROM bookings b
+                INNER JOIN tours t ON b.tour_id = t.id
+                WHERE b.user_id = ?";
+$stmt_bookings = $conn->prepare($sql_bookings);
+$stmt_bookings->bind_param("i", $id);
+$stmt_bookings->execute();
+$result_bookings = $stmt_bookings->get_result();
+
+while ($row = $result_bookings->fetch_assoc()) {
+    $booking_history[] = $row;
+}
+$stmt_bookings->close();
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +67,7 @@ $stmt->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .profile-card {
-            max-width: 400px;
+            max-width: 600px;
             margin: 20px auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -100,8 +116,16 @@ $stmt->close();
                 <p><?php echo "Country: " . $country; ?></p>
                 <p><?php echo "IP Address: " . $ip_address; ?></p>
                 <p><?php echo "Joined: " . $created_at_formatted; ?></p>
-                <!-- Additional information like bio, location, etc. can be added here -->
             </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Booking History</h4>
+            <ul>
+                <?php foreach ($booking_history as $booking) : ?>
+                    <li><?php echo $booking['booking_date'] . " - " . $booking['tour_name']; ?></li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     </div>
 
