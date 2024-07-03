@@ -24,14 +24,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="destinations.php"><i class="fas fa-map-marker-alt"></i> Destinations</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="tours.php"><i class="fas fa-globe"></i> Tours</a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="bookings.php"><i class="fas fa-ticket-alt"></i> Bookings</a>
-            </li>
+            </li> -->
             <li class="nav-item">
-                <a class="nav-link" href="profile.php"><i class="fas fa-user"></i> Profile</a>
+                <a class="nav-link" href="user_profile.php"><i class="fas fa-user"></i> Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
