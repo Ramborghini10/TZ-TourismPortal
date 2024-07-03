@@ -3,12 +3,12 @@ include('includes/db.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
+    $first_name = htmlspecialchars($_POST['first_name']);
+    $last_name = htmlspecialchars($_POST['last_name']);
+    $email = htmlspecialchars($_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
-    $phone = $_POST['phone'];
-    $country = $_POST['country'];
+    $phone = htmlspecialchars($_POST['phone']);
+    $country = htmlspecialchars($_POST['country']);
     $role = 'user'; // Default role as 'user'
     $ip_address = $_SERVER['REMOTE_ADDR']; // Get the IP address of the user
 
@@ -128,7 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="mb-3">
                     <label for="country" class="form-label">Country</label>
-                    <input type="text" class="form-control" id="country" name="country">
+                    <select class="form-control" id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <!-- Countries will be populated by JavaScript -->
+                    </select>
                 </div>
                 <p>Already have an account? <a href="login.php">Login Here</a></p>
                 <button type="submit" class="btn btn-success">Register</button>
@@ -138,5 +141,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    const countries = data.map(country => country.name.common).sort();
+                    const countrySelect = document.getElementById('country');
+                    countries.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country;
+                        option.textContent = country;
+                        countrySelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching country data:', error));
+        });
+    </script>
 </body>
 </html>

@@ -21,8 +21,12 @@
             color: #fff !important; /* White nav links */
             margin-right: 1rem; /* Space between links */
         }
-        .navbar-nav .nav-link:hover {
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
             color: #ffd700 !important; /* Gold hover color */
+        }
+        .navbar-nav .nav-link.active {
+            color: #ffd700 !important; /* Gold active color */
         }
         .navbar-toggler-icon {
             color: #fff; /* White icon */
@@ -42,10 +46,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php"><i class="bi bi-house-door-fill"></i> Home</a>
+                        <a class="nav-link active" href="index.php"><i class="bi bi-house-door-fill"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="destination.php"><i class="bi bi-house-door-fill"></i> Destinations</a>
+                        <a class="nav-link" href="attractions.php"><i class="bi bi-binoculars-fill"></i> Attractions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report_attractions.php"><i class="bi bi-flag-fill"></i> Report Attraction</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php"><i class="bi bi-box-arrow-in-right"></i> Login</a>
@@ -57,3 +64,8 @@
             </div>
         </div>
     </nav>
+
+    <!-- Bootstrap JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> -->
