@@ -78,17 +78,28 @@
                                 $mediaPath = $uploadFile;
                                 $mediaType = pathinfo($mediaPath, PATHINFO_EXTENSION);
 
-                                // Insert data into database using prepared statements
-                               include 'includes/db.php';
+                                // Database connection
+                                include 'includes/db.php'; // Adjust this path as per your file structure
+
+                                // Prepare statement
                                 $stmt = $conn->prepare("INSERT INTO new_attractions (full_name, occupation, identity, attraction_type, description, phone, email, location, media, media_type, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', NOW())");
+
+                                // Check if prepare succeeded
+                                if ($stmt === false) {
+                                    die('MySQL prepare error: ' . $conn->error);
+                                }
+
+                                // Bind parameters
                                 $stmt->bind_param("ssssssssss", $fullName, $occupation, $identity, $attractionType, $description, $phone, $email, $location, $mediaPath, $mediaType);
 
+                                // Execute statement
                                 if ($stmt->execute()) {
                                     echo "<div class='alert alert-success'>Attraction reported successfully!</div>";
                                 } else {
                                     echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
                                 }
 
+                                // Close statement and connection
                                 $stmt->close();
                                 $conn->close();
                             } else {
@@ -96,6 +107,7 @@
                             }
                         }
                         ?>
+
                         <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                             <div class="row">
                                 <div class="col-md-6">
