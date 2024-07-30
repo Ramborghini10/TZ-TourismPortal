@@ -1,4 +1,4 @@
-<?php 
+<?php
 // include('../includes/session.php');
 include('includes/header.php');
 include('includes/db.php');
@@ -36,17 +36,17 @@ $categoriesResult = $conn->query("SELECT * FROM destination_categories");
                 <?php
                 // Reset pointer to fetch categories again
                 $categoriesResult->data_seek(0);
-                
+
                 $firstCategory = true;
                 while ($category = $categoriesResult->fetch_assoc()) {
                     $categoryId = $category['id'];
                     $activeClass = $firstCategory ? 'show active' : '';
                     echo "<div class='tab-pane fade {$activeClass}' id='category-{$categoryId}' role='tabpanel' aria-labelledby='category-tab-{$categoryId}'>";
-                    
+
                     // Fetch destinations for current category
                     $query = "SELECT * FROM destinations WHERE category_id = {$categoryId}";
                     $destinationsResult = $conn->query($query);
-                    
+
                     // Display destinations as cards
                     echo "<div class='row row-cols-1 row-cols-md-4 g-4'>";
                     while ($row = $destinationsResult->fetch_assoc()) {
@@ -57,18 +57,18 @@ $categoriesResult = $conn->query("SELECT * FROM destination_categories");
                         echo "<h5 class='card-title'>{$row['name']}</h5>";
                         echo "<p class='card-text'>{$row['description']}</p>";
                         echo "<a href='destination_details.php?id={$row['id']}' class='btn btn-info'><i class='fas fa-info-circle'></i> Read More</a>";
-                        
+
                         // Check if logged in for booking link
-                        
-                            echo "<a href='book_form.php?id={$row['id']}' class='btn btn-primary mx-2'><i class='fas fa-book'></i> Book</a>";
-                      
-                        
+
+                        echo "<a href='book_form.php?id={$row['id']}' class='btn btn-primary mx-2'><i class='fas fa-book'></i> Book</a>";
+
+
                         echo "</div>"; // card-body
                         echo "</div>"; // card
                         echo "</div>"; // col
                     }
                     echo "</div>"; // row
-                    
+
                     echo "</div>"; // tab-pane
                     $firstCategory = false;
                 }
@@ -82,3 +82,4 @@ $categoriesResult = $conn->query("SELECT * FROM destination_categories");
 
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
