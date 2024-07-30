@@ -15,4 +15,4 @@ To launch the system:
 
 Admins password is: password
 
-You can create a new user too. 
+You can create a new user too. # TZ-TourismPortal
