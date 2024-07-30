@@ -1,9 +1,4 @@
-# tourism-portal
-The division of work:
-Medson Manase Loth: Backend development.
-James Zacharia John: Backend development. 
-Neema Alfred kalaghe:  Frontend development.  
-
+Tourism Portal
 
 To launch the system:
 1. Have xampp installed on the device. 
